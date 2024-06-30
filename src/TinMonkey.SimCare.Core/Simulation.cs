@@ -14,6 +14,9 @@ public class Simulation
 
     public async Task RunAsync(CancellationToken cancellationToken)
     {
+        await Task.Delay(1000, cancellationToken)
+            .ConfigureAwait(false);
+
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
