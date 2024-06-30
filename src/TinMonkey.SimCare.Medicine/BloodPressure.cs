@@ -1,4 +1,4 @@
-namespace TinMonkey.SimCare.Patient;
+namespace TinMonkey.SimCare.Medicine;
 
 public record BloodPressure(int Systolic, int Diastolic)
 {

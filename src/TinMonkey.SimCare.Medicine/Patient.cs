@@ -1,6 +1,6 @@
 using TinMonkey.SimCare.Core;
 
-namespace TinMonkey.SimCare.Patient;
+namespace TinMonkey.SimCare.Medicine;
 
 public class Patient(string FullName, DateOnly BirthDate) : SimulationComponent
 {

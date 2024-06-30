@@ -1,5 +1,6 @@
-using TinMonkey.SimCare.Core;
-using TinMonkey.SimCare.Patient;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using TinMonkey.SimCare.App;
 
 var cancelationToken = new CancellationTokenSource();
 Console.CancelKeyPress += (sender, args) =>
@@ -8,16 +9,10 @@ Console.CancelKeyPress += (sender, args) =>
     args.Cancel = true;
 };
 
-Console.WriteLine("Starting simulation");
+var builder = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) => services.AddHostedService<Worker>());
 
-var patients = new Patient[]
-{
-    new Patient("Alice", DateOnly.Parse("1971-10-13")),
-};
-
-var simulation = new Simulation(patients);
-await simulation
+await builder
+    .Build()
     .RunAsync(cancelationToken.Token)
     .ConfigureAwait(false);
-
-Console.WriteLine("Ending simulation");
