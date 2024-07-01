@@ -4,11 +4,15 @@ namespace TinMonkey.SimCare.Core;
 
 public class Simulation
 {
+    private readonly DrawContext drawContext;
     private readonly List<ISimulationComponent> components = [];
 
-    public Simulation(IEnumerable<ISimulationComponent> components)
+    public Simulation(DrawContext drawContext, IEnumerable<ISimulationComponent> components)
     {
+        ArgumentNullException.ThrowIfNull(drawContext);
         ArgumentNullException.ThrowIfNull(components);
+
+        this.drawContext = drawContext;
         this.components.AddRange(components);
     }
 
@@ -42,14 +46,22 @@ public class Simulation
         {
             ArgumentNullException.ThrowIfNull(simulationTime);
 
-            Console.WriteLine($"Tick {simulationTime.TotalTime} {simulationTime.ElapsedTime}");
-
             foreach (var component in this.components)
             {
                 if (component is IUpdateable updateable)
                 {
                     await updateable
                         .UpdateAsync(simulationTime, cancellationToken)
+                        .ConfigureAwait(false);
+                }
+            }
+
+            foreach (var component in this.components)
+            {
+                if (component is IDrawable drawable && drawable.Visible)
+                {
+                    await drawable
+                        .DrawAsync(this.drawContext, simulationTime, cancellationToken)
                         .ConfigureAwait(false);
                 }
             }

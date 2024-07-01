@@ -1,18 +1,14 @@
-
 namespace TinMonkey.SimCare.Core;
 
-public class SimulationComponent : ISimulationComponent, IUpdateable
+public abstract class SimulationComponent : ISimulationComponent, IUpdateable, IDrawable
 {
+    public bool Visible { get; } = true;
+
+    public bool Updated { get; protected set; }
+
     public virtual Task Initialize() => Task.CompletedTask;
 
-    public virtual async Task UpdateAsync(SimulationTime simulationTime, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(simulationTime);
-        ArgumentNullException.ThrowIfNull(cancellationToken);
+    public abstract Task UpdateAsync(SimulationTime simulationTime, CancellationToken cancellationToken);
 
-        Console.WriteLine($"Tick {simulationTime.TotalTime} {simulationTime.ElapsedTime}");
-
-        await Task.Delay(0, cancellationToken)
-            .ConfigureAwait(false);
-    }
+    public abstract Task DrawAsync(DrawContext drawContext, SimulationTime simulationTime, CancellationToken cancellationToken);
 }

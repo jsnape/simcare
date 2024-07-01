@@ -10,7 +10,7 @@ Console.CancelKeyPress += (sender, args) =>
 };
 
 var builder = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) => services.AddHostedService<Worker>());
+    .ConfigureServices((hostContext, services) => services.AddHostedService<Worker>());
 
 await builder
     .Build()

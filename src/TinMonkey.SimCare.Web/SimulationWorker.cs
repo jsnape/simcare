@@ -14,7 +14,9 @@ public class SimulationWorker : BackgroundService
             new Patient("Alice", DateOnly.Parse("1971-10-13")),
         };
 
-        var simulation = new Simulation(patients);
+        var drawContext = new DrawContext { Log = Console.Out };
+
+        var simulation = new Simulation(drawContext, patients);
         await simulation
             .RunAsync(stoppingToken)
             .ConfigureAwait(false);

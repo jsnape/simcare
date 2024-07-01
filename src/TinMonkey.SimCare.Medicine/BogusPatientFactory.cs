@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bogus;
 
 namespace TinMonkey.SimCare.Medicine;
-internal class BogusPatientFactory
+
+public class BogusPatientFactory
 {
+    public Patient CreateBogusPatient()
+    {
+        var person = new Person();
+        return new(person.FullName, DateOnly.FromDateTime(person.DateOfBirth));
+    }
 }
