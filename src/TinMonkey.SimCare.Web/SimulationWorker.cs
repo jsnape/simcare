@@ -1,4 +1,5 @@
 using TinMonkey.SimCare.Core;
+using TinMonkey.SimCare.App;
 using TinMonkey.SimCare.Medicine;
 
 namespace TinMonkey.SimCare.Web;
@@ -9,10 +10,13 @@ public class SimulationWorker : BackgroundService
     {
         Console.WriteLine("Starting simulation");
 
-        var patients = new Patient[]
-        {
-            new Patient("Alice", DateOnly.Parse("1971-10-13")),
-        };
+        var patientFactory = new BogusPatientFactory();
+
+        var patients = Enumerable
+            .Range(1, 10)
+            .Select(_ => patientFactory.CreateBogusPatient())
+            .Select(p => new PatientSimulator(p))
+            .Cast<ISimulationComponent>();
 
         var drawContext = new DrawContext { Log = Console.Out };
 

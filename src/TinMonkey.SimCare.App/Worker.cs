@@ -15,11 +15,11 @@ internal class Worker(ILogger<Worker> logger, IHost host) : BackgroundService
         Console.WriteLine("Starting simulation");
         var patientFactory = new BogusPatientFactory();
 
-        var patients = new Patient[]
-        {
-            patientFactory.CreateBogusPatient(),
-            patientFactory.CreateBogusPatient(),
-        };
+        var patients = Enumerable
+            .Range(1, 10)
+            .Select(_ => patientFactory.CreateBogusPatient())
+            .Select(p => new PatientSimulator(p))
+            .Cast<ISimulationComponent>();
 
         var departments = new Department[]
         {
@@ -30,21 +30,27 @@ internal class Worker(ILogger<Worker> logger, IHost host) : BackgroundService
             new("Neurology"),
         };
 
-        foreach (var department in departments)
-        {
-            var wardName = string.Concat(department.Name.AsSpan(0, 1), "1");
-            var ward = department.CreateWard(wardName);
+        var departmentSimulators = departments
+            .Select(d => new LocationSimulator(d));
 
-            for (var i = 1; i <= 4; i++)
+        var locationSimulators = departments
+            .SelectMany(d =>
             {
-                ward.CreateBed(wardName + "/" + i);
-            }
-        }
+                var wardName = string.Concat(d.Name.AsSpan(0, 1), "1");
+                var ward = d.CreateWard(wardName);
+
+                return Enumerable
+                    .Range(1, 4)
+                    .Select(i => ward.CreateBed(wardName + "/" + i))
+                    .Select(b => new LocationSimulator(b))
+                    .Concat(new LocationSimulator(ward).ToEnumerable()).ToList();
+
+            });
 
         var drawContext = new DrawContext { Log = Console.Out };
 
-        var components = departments
-            .Cast<ISimulationComponent>()
+        var components = departmentSimulators
+            .Concat(locationSimulators)
             .Concat(patients);
 
         var simulation = new Simulation(drawContext, components);

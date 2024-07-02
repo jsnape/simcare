@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TinMonkey.SimCare.App\TinMonkey.SimCare.App.csproj" />
     <ProjectReference Include="..\TinMonkey.SimCare.Core\TinMonkey.SimCare.Core.csproj" />
     <ProjectReference Include="..\TinMonkey.SimCare.Medicine\TinMonkey.SimCare.Medicine.csproj" />
   </ItemGroup>
