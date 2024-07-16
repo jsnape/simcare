@@ -12,9 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinMonkey.SimCare.App", "TinMonkey.SimCare.App\TinMonkey.SimCare.App.csproj", "{E4FBAB5B-BEC1-4B9F-98E4-93716CC0A078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinMonkey.SimCare.Medicine", "TinMonkey.SimCare.Medicine\TinMonkey.SimCare.Medicine.csproj", "{173F7B4F-A9BD-494E-B5BD-5CD38BC4ABA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinMonkey.SimCare.Medicine", "TinMonkey.SimCare.Medicine\TinMonkey.SimCare.Medicine.csproj", "{173F7B4F-A9BD-494E-B5BD-5CD38BC4ABA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinMonkey.SimCare.Web", "TinMonkey.SimCare.Web\TinMonkey.SimCare.Web.csproj", "{66225AB7-C698-4E49-A3F0-FD2E3A91CCAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinMonkey.SimCare.Web", "TinMonkey.SimCare.Web\TinMonkey.SimCare.Web.csproj", "{66225AB7-C698-4E49-A3F0-FD2E3A91CCAC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinMonkey.Domain.Core", "TinMonkey.Domain.Core\TinMonkey.Domain.Core.csproj", "{6D02D29C-0B8C-4F98-8AA8-D38018F9653C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinMonkey.SimCare.Api", "TinMonkey.SimCare.Api\TinMonkey.SimCare.Api.csproj", "{45D10030-13BA-45F8-9B2E-B31F423869C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,14 @@ Global
 		{66225AB7-C698-4E49-A3F0-FD2E3A91CCAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66225AB7-C698-4E49-A3F0-FD2E3A91CCAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66225AB7-C698-4E49-A3F0-FD2E3A91CCAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D02D29C-0B8C-4F98-8AA8-D38018F9653C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D02D29C-0B8C-4F98-8AA8-D38018F9653C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D02D29C-0B8C-4F98-8AA8-D38018F9653C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D02D29C-0B8C-4F98-8AA8-D38018F9653C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45D10030-13BA-45F8-9B2E-B31F423869C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D10030-13BA-45F8-9B2E-B31F423869C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D10030-13BA-45F8-9B2E-B31F423869C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D10030-13BA-45F8-9B2E-B31F423869C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

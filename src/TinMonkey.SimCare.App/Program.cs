@@ -9,10 +9,13 @@ Console.CancelKeyPress += (sender, args) =>
     args.Cancel = true;
 };
 
-var builder = Host.CreateDefaultBuilder(args)
-    .ConfigureServices((hostContext, services) => services.AddHostedService<Worker>());
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
+        {
+            services.AddHostedService<Worker>();
+        })
+    .Build();
 
-await builder
-    .Build()
+await host
     .RunAsync(cancelationToken.Token)
     .ConfigureAwait(false);

@@ -1,0 +1,6 @@
+@TinMonkey.SimCare.Api_HostAddress = http://localhost:5072
+
+GET {{TinMonkey.SimCare.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

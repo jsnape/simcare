@@ -1,6 +1,8 @@
+using TinMonkey.SimCare.Medicine.Domain;
+
 namespace TinMonkey.SimCare.Medicine;
 
-public class Patient(string FullName, DateOnly BirthDate)
+public class Patient(string FullName, DateOnly BirthDate) : AggregateRoot
 {
     public string FullName { get; } = FullName;
 

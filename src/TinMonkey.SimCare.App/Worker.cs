@@ -2,6 +2,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TinMonkey.SimCare.Core;
 using TinMonkey.SimCare.Medicine;
+using TinMonkey.SimCare.Medicine.Fhir;
 
 namespace TinMonkey.SimCare.App;
 
@@ -12,6 +13,14 @@ internal class Worker(ILogger<Worker> logger, IHost host) : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+
+        var encounter = new Encounter(EncounterStatus.Planned)
+        {
+            EncounterClass = EncounterClass.InPatient,
+            Subject = new Reference(Guid.NewGuid().ToBase36(), null, null, null),
+        };
+
+
         Console.WriteLine("Starting simulation");
         var patientFactory = new BogusPatientFactory();
 
@@ -34,24 +43,24 @@ internal class Worker(ILogger<Worker> logger, IHost host) : BackgroundService
             .Select(d => new LocationSimulator(d));
 
         var locationSimulators = departments
-            .SelectMany(d =>
+            .Select(d =>
             {
                 var wardName = string.Concat(d.Name.AsSpan(0, 1), "1");
                 var ward = d.CreateWard(wardName);
 
-                return Enumerable
+                var beds = Enumerable
                     .Range(1, 4)
-                    .Select(i => ward.CreateBed(wardName + "/" + i))
-                    .Select(b => new LocationSimulator(b))
-                    .Concat(new LocationSimulator(ward).ToEnumerable()).ToList();
+                    .Select(i => d.CreateBed(wardName + "/" + i, ward));
 
+                return new LocationSimulator(ward);
             });
 
         var drawContext = new DrawContext { Log = Console.Out };
 
         var components = departmentSimulators
             .Concat(locationSimulators)
-            .Concat(patients);
+            .Concat(patients)
+            .ToList();
 
         var simulation = new Simulation(drawContext, components);
         await simulation
