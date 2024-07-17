@@ -1,5 +1,6 @@
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using TinMonkey.SimCare.Api.Model;
 
@@ -20,7 +21,15 @@ public static class CosmosConfiguration
                 .GetRequiredService<IOptions<CosmosOptions>>()
                 .Value;
 
-            return new CosmosClient(options.EndpointUri, options.PrimaryKey);
+            var clientOptions = new CosmosClientOptions
+            {
+                SerializerOptions = new CosmosSerializationOptions
+                {
+                    IgnoreNullValues = true,
+                }
+            };
+
+            return new CosmosClient(options.EndpointUri, options.PrimaryKey, clientOptions);
         });
 
         services.AddDbContext<CosmosContext>(options =>

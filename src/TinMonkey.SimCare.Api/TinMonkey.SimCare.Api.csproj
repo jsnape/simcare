@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,14 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TinMonkey.SimCare.App\TinMonkey.SimCare.App.csproj" />
     <ProjectReference Include="..\TinMonkey.SimCare.Core\TinMonkey.SimCare.Core.csproj" />
-    <ProjectReference Include="..\TinMonkey.SimCare.Medicine\TinMonkey.SimCare.Medicine.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Application\" />
-    <Folder Include="Domain\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
